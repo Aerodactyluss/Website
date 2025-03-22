@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+
+    <h2>Login dengan Google</h2>
+    <div id="g_id_onload"
+         data-client_id="988777376075-qnrus606kjqsni1nm78m8seoqko5pn5c.apps.googleusercontent.com"
+         data-callback="handleCredentialResponse">
+    </div>
+
+    <div class="g_id_signin" data-type="standard"></div>
+
+    <script>
+        function handleCredentialResponse(response) {
+            const data = JSON.parse(atob(response.credential.split(".")[1]));
+            localStorage.setItem("username", data.name);
+            localStorage.setItem("useremail", data.email);
+            window.location.href = "index.html"; // Redirect kembali setelah login
+        }
+    </script>
+
+</body>
+</html>
