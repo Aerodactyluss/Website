@@ -14,7 +14,51 @@ document.addEventListener("DOMContentLoaded", function() {
         { name: "Monitor", price: 2000000, desc: "Monitor 144Hz Full HD untuk gaming" },
         { name: "Headset", price: 750000, desc: "Headset noise-cancelling dengan mic" }
     ];
+    
+    function checkout() {
+        if (!username) {
+            consoleContent.innerHTML += "Anda harus login dengan Google sebelum bisa checkout.\n";
+            return;
+        }
+        if (cart.length === 0) {
+            consoleContent.innerHTML += "Keranjang Anda kosong. Tambahkan produk terlebih dahulu!\n";
+            return;
+        }
 
+        let orderDetails = cart.join(", ");
+        sendOrderEmail(username, orderDetails);
+
+        consoleContent.innerHTML += "✅ Pembayaran berhasil! Pesanan telah dikirim ke admin.\n";
+        purchaseHistory = purchaseHistory.concat(cart);
+        localStorage.setItem("history", JSON.stringify(purchaseHistory));
+        cart = [];
+        localStorage.removeItem("cart");
+    }
+
+    consoleInput.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            let command = consoleInput.value.trim();
+            if (command.toLowerCase() === "checkout") {
+                checkout();
+            }
+        }
+    });
+});
+        
+    function sendOrderEmail(user, orderDetails) {
+        emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+            user_name: user,
+            order_details: orderDetails
+        }).then(
+            function(response) {
+                console.log("Email terkirim!", response.status, response.text);
+            },
+            function(error) {
+                console.log("Gagal mengirim email:", error);
+            }
+        );
+    }
+    
     function showWelcomeMessage() {
         consoleContent.innerHTML += 
             "[WELCOME] Selamat datang di Windows Console Store!\n" +
