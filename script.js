@@ -101,8 +101,24 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function processCommand(command) {
         let response = "";
+        
+        if (command.toLowerCase().startsWith("admin ")) {
+            let password = command.split(" ")[1];
+            if (password === "admin123") {
+                isAdmin = true;
+                localStorage.setItem("isAdmin", "true");
+                response = "✅ Login Admin berhasil!";
+            } else {
+                response = "❌ Password salah!";
+            }
+        } else if (command.toLowerCase() === "logout") {
+            isAdmin = false;
+            username = null;
+            localStorage.removeItem("username");
+            localStorage.removeItem("isAdmin");
+            response = "✅ Anda telah logout.";
 
-        if (command.toLowerCase() === "help") {
+        } else if (command.toLowerCase() === "help") {
             response = "Available Commands:\n" +
                 "📜 help - Menampilkan daftar command\n" +
                 "📦 list - Menampilkan daftar produk\n" +
