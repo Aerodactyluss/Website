@@ -22,12 +22,16 @@
         </div>
     </div>
 
-<div id="login-container">
-        <div id="textdraw-title">Login dengan Google</div>
-        <button id="google-login-button" onclick="googleLogin()">
-            LOGIN
-        </button>
+<div id="g_id_onload"
+     data-client_id="YOUR_GOOGLE_CLIENT_ID"
+     data-callback="handleCredentialResponse">
 </div>
+
+<div class="g_id_signin"
+     data-type="standard">
+</div>
+
+<button id="manual-login">Login dengan Google</button>
 
 
 <div class="g_id_signin"
