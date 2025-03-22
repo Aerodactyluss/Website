@@ -44,12 +44,6 @@
     </footer>
 
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        let username = localStorage.getItem("username");
-        if (username) {
-            document.body.innerHTML = `<h2>Selamat datang, ${username}!</h2>`;
-        }
-    });
     function redirectToLogin() {
         window.location.href = "login.html"; // Ganti dengan halaman login yang kamu buat
     }
