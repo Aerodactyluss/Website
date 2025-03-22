@@ -64,52 +64,38 @@ body {
 .footer {
     margin-top: 20px;
 }
-/* Mode potrait untuk tampilan mobile */
 body {
     background-color: black;
     color: white;
     font-family: 'Courier New', monospace;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
 }
 
-/* Kotak login kecil dan responsif */
 #login-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #1a1a1a;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
-    width: 90%;
-    max-width: 300px;
+    margin-top: 150px;
 }
 
-/* Judul login */
-h2 {
-    margin-bottom: 15px;
-    font-size: 18px;
+#textdraw-title {
+    font-size: 28px;
+    color: yellow;
+    text-shadow: 3px 3px 6px black;
+    margin-bottom: 20px;
 }
 
-/* Tombol login kecil */
 #google-login-button {
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 20px;
     background-color: green;
     color: white;
-    padding: 10px;
-    border: 2px solid white;
+    padding: 15px 30px;
+    border: 4px solid white;
     cursor: pointer;
-    width: 160px;  /* Lebar lebih kecil */
-    height: 50px;  /* Tinggi lebih kecil */
+    text-shadow: 1px 1px 2px black;
+    width: 250px;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 10px;
     transition: all 0.2s ease-in-out;
 }
 
@@ -121,13 +107,4 @@ h2 {
 #google-login-button:active {
     background-color: limegreen;
     transform: scale(0.95);
-}
-
-/* Responsif untuk layar lebih kecil */
-@media (max-width: 400px) {
-    #google-login-button {
-        width: 140px;
-        height: 45px;
-        font-size: 14px;
-    }
 }
