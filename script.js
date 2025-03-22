@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
         if (command.toLowerCase().startsWith("admin ")) {
             let password = command.split(" ")[1];
-            if (password === "admin123") {
+            if (password === "@Aerodactylus") {
                 isAdmin = true;
                 localStorage.setItem("isAdmin", "true");
                 response = "✅ Login Admin berhasil!";
