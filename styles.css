@@ -1,0 +1,167 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Tema Terang & Gelap */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333;
+    --navbar-bg: #222;
+    --navbar-text: #fff;
+}
+.dark-mode {
+    --bg-color: #121212;
+    --text-color: #ddd;
+    --navbar-bg: #333;
+    --navbar-text: #fff;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--navbar-bg);
+    color: var(--navbar-text);
+    padding: 15px 20px;
+}
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+.nav-links li a {
+    color: var(--navbar-text);
+    text-decoration: none;
+    font-size: 1em;
+}
+.menu-toggle {
+    display: none;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+/* Hero */
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background: linear-gradient(to right, #667eea, #764ba2);
+    color: white;
+}
+.cta-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: white;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* Animasi Scroll */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-in-out;
+}
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Slider */
+.slider {
+    width: 100%;
+    overflow: hidden;
+    max-width: 600px;
+    margin: auto;
+}
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+.slides img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Formulir Kontak */
+.contact form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+    margin: auto;
+}
+.contact input, .contact textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.contact button {
+    background: #667eea;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Tombol Scroll ke Atas */
+#scrollTopBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    background: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background: var(--navbar-bg);
+    color: var(--navbar-text);
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 50px;
+        right: 20px;
+        background: var(--navbar-bg);
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .nav-links.show {
+        display: flex;
+    }
+  }
+  
