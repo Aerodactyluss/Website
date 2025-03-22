@@ -23,7 +23,7 @@
     </div>
 
 <div id="g_id_onload"
-     data-client_id="YOUR_GOOGLE_CLIENT_ID"
+     data-client_id="988777376075-qnrus606kjqsni1nm78m8seoqko5pn5c.apps.googleusercontent.com"
      data-callback="handleCredentialResponse">
 </div>
 
@@ -62,22 +62,6 @@
     <footer class="footer">
         <p>&copy; 2025 Sann. All rights reserved.</p>
     </footer>
-    
-    <script>
-        function googleLogin() {
-            google.accounts.id.prompt();
-        }
-
-        function handleCredentialResponse(response) {
-            console.log("Login sukses:", response);
-        }
-        window.onload = function () {
-            google.accounts.id.initialize({
-                client_id: "988777376075-qnrus606kjqsni1nm78m8seoqko5pn5c.apps.googleusercontent.com",
-                callback: handleCredentialResponse
-            });
-        };
-    </script>
     
 </body>
 </html>
