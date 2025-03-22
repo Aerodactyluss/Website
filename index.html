@@ -6,6 +6,9 @@
     <title>Windows Console Store</title>
     <link rel="stylesheet" href="styles.css">
     <script defer src="script.js"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+    
 </head>
 <body>
 
@@ -19,13 +22,10 @@
         </div>
     </div>
 
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-<div id="g_id_onload"
-     data-client_id="988777376075-qnrus606kjqsni1nm78m8seoqko5pn5c.apps.googleusercontent.com"
-     data-callback="handleCredentialResponse"
-     data-auto_prompt="false">
+<div class="login-container">
+    <button id="login-btn" onclick="googleLogin()">▶ Login dengan Google</button>
 </div>
+
 
 <div class="g_id_signin"
      data-type="standard"
