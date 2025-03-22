@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let orderDetails = cart.join(", ");
         sendOrderEmail(username, orderDetails);
 
-        consoleContent.innerHTML += "✅ Pembayaran berhasil! Pesanan telah dikirim ke admin.\n";
+        consoleContent.innerHTML += "✅ Anda Berhasil Checkout Tunggu Pesan Email Dari Admin.\n";
         purchaseHistory = purchaseHistory.concat(cart);
         localStorage.setItem("history", JSON.stringify(purchaseHistory));
         cart = [];
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
         
     function sendOrderEmail(user, orderDetails) {
-        emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+        emailjs.send("service_baqdrdx", "template_2n0iqja", {
             user_name: user,
             order_details: orderDetails
         }).then(
