@@ -82,6 +82,9 @@ document.addEventListener("DOMContentLoaded", function() {
         consoleContent.innerHTML += `\n<span class="prompt">${getPrompt()}</span> `;
         consoleWindow.scrollTop = consoleWindow.scrollHeight;
     }
+    function googleLogin() {
+    google.accounts.id.prompt();
+    }
     function saveProducts() {
             localStorage.setItem("products", JSON.stringify(products));
     }
