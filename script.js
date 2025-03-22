@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const consoleWindow = document.querySelector(".console-window");
     const consoleContent = document.getElementById("console");
     const consoleInput = document.getElementById("console-input");
+    emailjs.init("kfI2cDSPeQxwKnRoO");
+
 
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     let purchaseHistory = JSON.parse(localStorage.getItem("history")) || [];
