@@ -20,25 +20,29 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
 
     function checkout() {
-        if (!username) {
-            consoleContent.innerHTML += "❌ Anda harus login dengan Google sebelum bisa checkout.\n";
-            return;
-        }
-        if (cart.length === 0) {
-            consoleContent.innerHTML += "🛒 Keranjang Anda kosong. Tambahkan produk terlebih dahulu!\n";
-            return;
-        }
-
-        let orderDetails = cart.map(p => `${p.name} - Rp${p.price.toLocaleString()}`).join("\n");
-
-        sendOrderEmail(username, orderDetails);
-        consoleContent.innerHTML += "✅ Checkout berhasil! Tunggu pesan email dari Admin.\n";
-
-        purchaseHistory = purchaseHistory.concat(cart);
-        localStorage.setItem("history", JSON.stringify(purchaseHistory));
-        cart = [];
-        localStorage.removeItem("cart");
+    if (!username) {
+        consoleContent.innerHTML += "Anda harus login dengan Google sebelum bisa checkout.\n";
+        return;
     }
+    if (cart.length === 0) {
+        consoleContent.innerHTML += "Keranjang Anda kosong. Tambahkan produk terlebih dahulu!\n";
+        return;
+    }
+
+    let orderDetails = cart.map(item => `${item.name} - Rp${item.price.toLocaleString()}`).join("\n");
+
+    sendOrderEmail(username, orderDetails); // Pastikan fungsi ini dipanggil
+
+    consoleContent.innerHTML += "✅ Anda Berhasil Checkout. Tunggu pesan email dari admin.\n";
+
+    // Simpan riwayat pembelian
+    purchaseHistory = purchaseHistory.concat(cart);
+    localStorage.setItem("history", JSON.stringify(purchaseHistory));
+    
+    // Kosongkan keranjang
+    cart = [];
+    localStorage.removeItem("cart");
+        }
 
     function sendOrderEmail(user, orderDetails) {
         emailjs.send("service_baqdrdx", "template_2n0iqja", {
