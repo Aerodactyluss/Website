@@ -130,6 +130,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 "ℹ️ info [nama produk] - Melihat detail produk\n" +
                 "💰 apply [kode promo] - Menggunakan kode promo\n" +
                 "🧹 clear - Membersihkan layar";
+                (isAdmin ? 
+                "\n⚙ **Perintah Admin:**\n" +
+                "----------------------------------\n" +
+                "**add [nama] [harga]** - Menambah produk baru\n" +
+                "**remove [nama]** - Menghapus produk\n" +
+                "**update [nama] [harga baru]** - Mengubah harga produk" 
+                : "");
         } else if (command.toLowerCase() === "list") {
             response = "Available Products:\n";
             products.forEach((p, i) => {
