@@ -1,172 +1,66 @@
-/* Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
-/* Tema Warna Hitam, Putih, dan Abu-Abu */
+/* Tema warna modern */
 :root {
-    --bg-color: #1c1c1c;
-    --text-color: #e0e0e0;
-    --navbar-bg: #2e2e2e;
-    --navbar-text: #ffffff;
-    --button-bg: #555;
-    --button-hover: #777;
+    --bg-color: #1a1a1a;
+    --text-color: #33ff33;
 }
 
-/* Background dan Teks */
+/* Tampilan utama */
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
-    transition: all 0.3s ease;
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    margin: 0;
 }
 
-/* Navbar */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--navbar-bg);
-    color: var(--navbar-text);
-    padding: 15px 20px;
+/* Efek glitch */
+@keyframes glitch {
+    0% { text-shadow: 2px 2px red; }
+    25% { text-shadow: -2px -2px blue; }
+    50% { text-shadow: 2px -2px green; }
+    75% { text-shadow: -2px 2px yellow; }
+    100% { text-shadow: 2px 2px red; }
 }
-.logo {
-    font-size: 1.5em;
+.glitch {
+    animation: glitch 1s infinite alternate;
+    font-size: 20px;
     font-weight: bold;
 }
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 15px;
-}
-.nav-links li a {
-    color: var(--navbar-text);
-    text-decoration: none;
-    font-size: 1em;
-}
-.menu-toggle {
-    display: none;
-    font-size: 2em;
-    cursor: pointer;
-}
 
-/* Hero */
-.hero {
-    text-align: center;
-    padding: 100px 20px;
-    background: #2a2a2a;
-    color: white;
-}
-.cta-button {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background: var(--button-bg);
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-}
-.cta-button:hover {
-    background: var(--button-hover);
-}
-
-/* Konten */
-.reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.6s ease-in-out;
-}
-.reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Slider */
-.slider {
-    width: 100%;
-    overflow: hidden;
-    max-width: 600px;
-    margin: auto;
-}
-.slides {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
-.slides img {
-    width: 100%;
-    border-radius: 10px;
-}
-
-/* Formulir Kontak */
-.contact form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-width: 400px;
-    margin: auto;
-}
-.contact input, .contact textarea {
-    width: 100%;
+/* Layar konsol */
+.console-window {
+    width: 90%;
+    max-width: 800px;
+    height: 400px;
+    background: black;
+    color: var(--text-color);
+    border: 2px solid var(--text-color);
+    margin: 20px auto;
     padding: 10px;
-    background: #333;
-    color: white;
-    border: 1px solid #555;
-    border-radius: 5px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    text-align: left;
 }
-.contact button {
-    background: var(--button-bg);
-    color: white;
-    padding: 10px;
+
+/* Input konsol */
+#console-input {
+    width: 100%;
+    background: transparent;
+    color: var(--text-color);
     border: none;
-    cursor: pointer;
-}
-.contact button:hover {
-    background: var(--button-hover);
+    outline: none;
+    font-family: 'Courier New', monospace;
 }
 
-/* Tombol Scroll ke Atas */
-#scrollTopBtn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: none;
-    background: var(--button-bg);
-    color: white;
+/* Garis pemisah */
+.divider {
     border: none;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
+    height: 1px;
+    background: var(--text-color);
+    margin: 10px 0;
 }
 
 /* Footer */
 .footer {
-    text-align: center;
-    padding: 20px;
-    background: var(--navbar-bg);
-    color: var(--navbar-text);
-    position: relative;
-    bottom: 0;
-    width: 100%;
-}
-
-/* Responsif */
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-    }
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 50px;
-        right: 20px;
-        background: var(--navbar-bg);
-        padding: 10px;
-        border-radius: 5px;
-    }
-    .nav-links.show {
-        display: flex;
-    }
+    margin-top: 20px;
 }
