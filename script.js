@@ -82,6 +82,9 @@ document.addEventListener("DOMContentLoaded", function() {
         consoleContent.innerHTML += `\n<span class="prompt">${getPrompt()}</span> `;
         consoleWindow.scrollTop = consoleWindow.scrollHeight;
     }
+    function saveProducts() {
+            localStorage.setItem("products", JSON.stringify(products));
+    }
     function updateNetworkStatus() {
         isOnline = navigator.onLine;
         let statusMessage = isOnline ? "Online Mode Activated." : "Offline Mode Activated.";
