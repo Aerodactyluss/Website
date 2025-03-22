@@ -3,67 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Modern</title>
+    <title>Windows Console Store</title>
     <link rel="stylesheet" href="styles.css">
     <script defer src="script.js"></script>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="logo">ModernSite</div>
-        <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
-        <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><button id="theme-toggle">🌙</button></li>
-        </ul>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="hero">
-        <h1>Selamat Datang di Website Modern</h1>
-        <p>Desain modern, fitur inovatif, dan pengalaman luar biasa.</p>
-        <a href="#" class="cta-button">Pelajari Lebih Lanjut</a>
-    </header>
-
-    <!-- Konten -->
-    <section class="content reveal">
-        <h2>Kenapa Memilih Kami?</h2>
-        <p>Kami menyediakan solusi terbaik untuk kebutuhan digital Anda.</p>
-    </section>
-
-    <!-- Slider/Galeri Gambar -->
-    <div class="slider reveal">
-        <div class="slides">
-            <img src="image1.jpg" alt="Image 1">
-            <img src="image2.jpg" alt="Image 2">
-            <img src="image3.jpg" alt="Image 3">
+    <!-- Navbar / Simulasi Bar Windows -->
+    <div class="console-bar">
+        <div class="console-title">Windows Console Store</div>
+        <div class="console-buttons">
+            <span class="minimize">-</span>
+            <span class="maximize">□</span>
+            <span class="close">×</span>
         </div>
     </div>
 
-    <!-- Formulir Kontak -->
-    <section class="contact reveal">
-        <h2>Hubungi Kami</h2>
-        <form id="contactForm">
-            <input type="text" id="name" placeholder="Nama Anda" required>
-            <input type="email" id="email" placeholder="Email Anda" required>
-            <textarea id="message" placeholder="Pesan Anda" required></textarea>
-            <button type="submit">Kirim</button>
-        </form>
-        <p id="responseMessage"></p>
-    </section>
-
-    <!-- Tombol Scroll ke Atas -->
-    <button id="scrollTopBtn" onclick="scrollToTop()">⬆</button>
+    <!-- Layar Konsol -->
+    <div class="console-window">
+        <div class="console-content" id="console">
+            <p class="glitch">*** WELCOME TO WINDOWS CONSOLE STORE ***</p>
+            <hr class="divider">
+            <p>Microsoft Windows [Version 10.0.19045.0000]</p>
+            <p>(c) Microsoft Corporation. All rights reserved.</p>
+            <p class="typing-text">Initializing store...</p>
+            <hr class="divider">
+            <p><span class="prompt">C:\Store></span> <span id="typed-text"></span><span class="cursor">█</span></p>
+        </div>
+        <input type="text" id="console-input" autofocus>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
-        <p>&copy; 2025 ModernSite. All rights reserved.</p>
+        <p>&copy; 2025 Windows Console Store. All rights reserved.</p>
     </footer>
 
 </body>
-          </html>
-  
+</html>
