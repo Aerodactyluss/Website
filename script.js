@@ -45,18 +45,19 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
     function sendOrderEmail(user, orderDetails) {
-        emailjs.send("service_baqdrdx", "template_2n0iqja", {
-            user_name: user,
-            order_details: orderDetails
-        }).then(
-            function (response) {
-                console.log("✅ Email terkirim!", response.status, response.text);
-            },
-            function (error) {
-                console.log("❌ Gagal mengirim email:", error);
-            }
-        );
-    }
+    emailjs.send("service_baqdrdx", "template_2n0iqja", {
+        user_name: user,
+        order_details: orderDetails,
+        admin_email: "aerodactylusss@gmail.com" // Ganti dengan email admin
+    }).then(
+        function(response) {
+            console.log("✅ Email berhasil dikirim!", response.status, response.text);
+        },
+        function(error) {
+            console.log("❌ Gagal mengirim email:", error);
+        }
+    );
+        }
 
     function showWelcomeMessage() {
         consoleContent.innerHTML += 
