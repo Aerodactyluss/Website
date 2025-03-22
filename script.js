@@ -8,6 +8,9 @@ document.addEventListener("DOMContentLoaded", function() {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     let purchaseHistory = JSON.parse(localStorage.getItem("history")) || [];
     let isOnline = navigator.onLine;
+    let username = localStorage.getItem("username") || null;
+    let isAdmin = localStorage.getItem("isAdmin") === "true";
+    
 
     const products = [
         { name: "Laptop", price: 15000000, desc: "Laptop high-performance untuk gaming & kerja" },
@@ -68,7 +71,17 @@ document.addEventListener("DOMContentLoaded", function() {
             "Untuk melihat produk, ketik 'list'.\n" +
             "Untuk membeli, ketik 'buy [nama produk]'.\n";
     }
+    showWelcomeMessage();
 
+    function getPrompt() {
+        return isAdmin ? "C:\\Admin>" : username ? `C:\\${username}>` : "C:\\Guest>";
+    }
+
+    function updatePrompt() 
+    {
+        consoleContent.innerHTML += `\n<span class="prompt">${getPrompt()}</span> `;
+        consoleWindow.scrollTop = consoleWindow.scrollHeight;
+    }
     function updateNetworkStatus() {
         isOnline = navigator.onLine;
         let statusMessage = isOnline ? "Online Mode Activated." : "Offline Mode Activated.";
@@ -81,15 +94,7 @@ document.addEventListener("DOMContentLoaded", function() {
     showWelcomeMessage();
     updateNetworkStatus();
 
-    consoleWindow.addEventListener("click", () => consoleInput.focus());
-
-    consoleInput.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            let command = consoleInput.value.trim();
-            processCommand(command);
-            consoleInput.value = "";
-        }
-    });
+    
 
     function processCommand(command) {
         let response = "";
@@ -111,6 +116,17 @@ document.addEventListener("DOMContentLoaded", function() {
             products.forEach((p, i) => {
                 response += `(${i + 1}) ${p.name} - Rp${p.price.toLocaleString()}\n`;
             });
+      consoleWindow.addEventListener("click", () => consoleInput.focus());
+
+      consoleInput.addEventListener("keydown", function(event) {
+          if (event.key === "Enter") {
+              let command = consoleInput.value.trim();
+              consoleContent.innerHTML += `${command}\n`;
+              processCommand(command);
+              consoleInput.value = "";
+              updatePrompt();
+          }
+      }); 
         } else if (command.toLowerCase().startsWith("buy ")) {
             let productName = command.substring(4);
             let product = products.find(p => p.name.toLowerCase() === productName.toLowerCase());
