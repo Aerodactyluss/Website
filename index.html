@@ -22,27 +22,7 @@
         </div>
     </div>
 
-<div id="g_id_onload"
-     data-client_id="988777376075-qnrus606kjqsni1nm78m8seoqko5pn5c.apps.googleusercontent.com"
-     data-callback="handleCredentialResponse">
-</div>
-
-<div class="g_id_signin"
-     data-type="standard">
-</div>
-
-<button id="manual-login">Login dengan Google</button>
-
-
-<div class="g_id_signin"
-     data-type="standard"
-     data-size="large"
-     data-theme="outline"
-     data-text="sign_in_with"
-     data-shape="rectangular"
-     data-logo_alignment="left">
-</div>
-    
+<button id="google-login-btn" onclick="redirectToLogin()">Login dengan Google</button>
     
     <!-- Layar Konsol -->
     <div class="console-window">
@@ -62,6 +42,18 @@
     <footer class="footer">
         <p>&copy; 2025 Sann. All rights reserved.</p>
     </footer>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let username = localStorage.getItem("username");
+        if (username) {
+            document.body.innerHTML = `<h2>Selamat datang, ${username}!</h2>`;
+        }
+    });
+    function redirectToLogin() {
+        window.location.href = "login.html"; // Ganti dengan halaman login yang kamu buat
+    }
+    </script>
     
 </body>
 </html>
