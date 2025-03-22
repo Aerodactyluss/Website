@@ -6,23 +6,21 @@
     font-family: Arial, sans-serif;
 }
 
-/* Tema Terang & Gelap */
+/* Tema Warna Hitam, Putih, dan Abu-Abu */
+:root {
+    --bg-color: #1c1c1c;
+    --text-color: #e0e0e0;
+    --navbar-bg: #2e2e2e;
+    --navbar-text: #ffffff;
+    --button-bg: #555;
+    --button-hover: #777;
+}
+
+/* Background dan Teks */
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: all 0.3s ease;
-}
-:root {
-    --bg-color: #ffffff;
-    --text-color: #333;
-    --navbar-bg: #222;
-    --navbar-text: #fff;
-}
-.dark-mode {
-    --bg-color: #121212;
-    --text-color: #ddd;
-    --navbar-bg: #333;
-    --navbar-text: #fff;
 }
 
 /* Navbar */
@@ -58,20 +56,23 @@ body {
 .hero {
     text-align: center;
     padding: 100px 20px;
-    background: linear-gradient(to right, #667eea, #764ba2);
+    background: #2a2a2a;
     color: white;
 }
 .cta-button {
     display: inline-block;
     margin-top: 20px;
     padding: 10px 20px;
-    background: white;
-    color: #333;
+    background: var(--button-bg);
+    color: white;
     text-decoration: none;
     border-radius: 5px;
 }
+.cta-button:hover {
+    background: var(--button-hover);
+}
 
-/* Animasi Scroll */
+/* Konten */
 .reveal {
     opacity: 0;
     transform: translateY(30px);
@@ -109,15 +110,20 @@ body {
 .contact input, .contact textarea {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    background: #333;
+    color: white;
+    border: 1px solid #555;
     border-radius: 5px;
 }
 .contact button {
-    background: #667eea;
+    background: var(--button-bg);
     color: white;
     padding: 10px;
     border: none;
     cursor: pointer;
+}
+.contact button:hover {
+    background: var(--button-hover);
 }
 
 /* Tombol Scroll ke Atas */
@@ -126,7 +132,7 @@ body {
     bottom: 20px;
     right: 20px;
     display: none;
-    background: #333;
+    background: var(--button-bg);
     color: white;
     border: none;
     padding: 10px;
@@ -163,5 +169,4 @@ body {
     .nav-links.show {
         display: flex;
     }
-  }
-  
+}
