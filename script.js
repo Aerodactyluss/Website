@@ -169,6 +169,39 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 response = "Produk tidak ditemukan.";
             }
+        } else if (command.toLowerCase().startsWith("add ") && isAdmin) {
+            let args = command.split(" ");
+            let name = args[1];
+            let price = parseInt(args[2]);
+            if (!name || isNaN(price)) {
+                response = "❌ Format salah! Gunakan: add [nama] [harga]";
+            } else {
+                products.push({ name, price });
+                saveProducts();
+                response = `✅ Produk '${name}' telah ditambahkan dengan harga Rp${price.toLocaleString()}.`;
+            }
+        } else if (command.toLowerCase().startsWith("remove ") && isAdmin) {
+            let name = command.split(" ")[1];
+            let index = products.findIndex(p => p.name.toLowerCase() === name.toLowerCase());
+            if (index !== -1) {
+                products.splice(index, 1);
+                saveProducts();
+                response = `✅ Produk '${name}' telah dihapus.`;
+            } else {
+                response = "❌ Produk tidak ditemukan.";
+            }
+        } else if (command.toLowerCase().startsWith("update ") && isAdmin) {
+            let args = command.split(" ");
+            let name = args[1];
+            let newPrice = parseInt(args[2]);
+            let product = products.find(p => p.name.toLowerCase() === name.toLowerCase());
+            if (!product || isNaN(newPrice)) {
+                response = "❌ Format salah atau produk tidak ditemukan. Gunakan: update [nama] [harga baru]";
+            } else {
+                product.price = newPrice;
+                saveProducts();
+                response = `✅ Harga '${name}' telah diperbarui menjadi Rp${newPrice.toLocaleString()}.`;
+                   }
         } else if (command.toLowerCase() === "cart") {
             response = cart.length === 0 ? "Keranjang Anda kosong. Ketik 'list' untuk melihat produk." : "Keranjang Belanja:\n";
             let total = 0;
@@ -221,4 +254,5 @@ document.addEventListener("DOMContentLoaded", function() {
         consoleContent.innerHTML += `\n<span class="prompt">C:\\Store></span> ${command}\n${response}\n`;
         consoleWindow.scrollTop = consoleWindow.scrollHeight;
     }
+    updatePrompt();
 });
