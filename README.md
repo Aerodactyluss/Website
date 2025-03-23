@@ -42,6 +42,6 @@ Windows Console Store adalah website toko online yang dirancang dengan tampilan 
 ## **Instalasi**  
 1. Clone repository ini  
    ```sh
-   git clone https://github.com/username/repository.git
+   git clone https://github.com/Aerodactyluss/repository.git
    cd repository
    
