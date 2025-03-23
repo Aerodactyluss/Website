@@ -18,7 +18,9 @@ document.addEventListener("DOMContentLoaded", function () {
         { name: "Monitor", price: 2000000, desc: "Monitor 144Hz Full HD untuk gaming" },
         { name: "Headset", price: 750000, desc: "Headset noise-cancelling dengan mic" }
     ];
-
+    function saveProducts() {
+        localStorage.setItem("products", JSON.stringify(products));
+    }
     function checkout() {
         if (!username) {
             consoleContent.innerHTML += "❌ Anda harus login dengan Google sebelum bisa checkout.\n";
@@ -76,8 +78,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function processCommand(command) {
         let response = "";
+        
+        if (command.toLowerCase().startsWith("admin ")) {
+            let password = command.split(" ")[1];
+            if (password === "@Aerodactylus") {
+                isAdmin = true;
+                localStorage.setItem("isAdmin", "true");
+                response = "✅ Login Admin berhasil!";
+            } else {
+                response = "❌ Password salah!";
+            }
 
-        if (command.toLowerCase() === "help") {
+        } else if (command.toLowerCase() === "logout") {
+            isAdmin = false;
+            username = null;
+            localStorage.removeItem("username");
+            localStorage.removeItem("isAdmin");
+            response = "✅ Anda telah logout.";
+            
+            
+
+        } else if (command.toLowerCase() === "help") {
             response = "📜 Daftar Command:\n" +
                 "- `help` → Menampilkan daftar command\n" +
                 "- `list` → Menampilkan daftar produk\n" +
@@ -98,6 +119,37 @@ document.addEventListener("DOMContentLoaded", function () {
             products.forEach((p, i) => {
                 response += `(${i + 1}) ${p.name} - Rp${p.price.toLocaleString()}\n`;
             });
+        } else if (command.toLowerCase().startsWith("add ") && isAdmin) {
+            let args = command.split(" ");
+            let name = args[1];
+            let price = parseInt(args[2]);
+            if (!name || isNaN(price)) {
+                response = "❌ Format salah! Gunakan: add [nama] [harga]";
+            } else {
+                products.push({ name, price, desc: "Produk baru" });
+                saveProducts();
+                response = `✅ Produk '${name}' telah ditambahkan dengan harga Rp${price.toLocaleString()}.`;
+            }
+        } else if (command.toLowerCase().startsWith("remove ") && isAdmin) {
+            let name = command.split(" ")[1];
+            let index = products.findIndex(p => p.name.toLowerCase() === name.toLowerCase());
+            if (index !== -1) {
+                products.splice(index, 1);
+                saveProducts();
+                response = `✅ Produk '${name}' telah dihapus.`;
+            } else {
+                response = "❌ Produk tidak ditemukan.";
+            }
+        } else if (command.toLowerCase().startsWith("remove ") && isAdmin) {
+            let name = command.split(" ")[1];
+            let index = products.findIndex(p => p.name.toLowerCase() === name.toLowerCase());
+            if (index !== -1) {
+                products.splice(index, 1);
+                saveProducts();
+                response = `✅ Produk '${name}' telah dihapus.`;
+            } else {
+                response = "❌ Produk tidak ditemukan.";
+            }
         } else if (command.toLowerCase() === "checkout") {
             checkout();
             return;
