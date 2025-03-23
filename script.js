@@ -41,17 +41,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function sendOrderEmail(user, orderDetails) {
-        emailjs.send("service_baqdrdx", "template_2n0iqja", {
-            user_name: user,
-            order_details: orderDetails
-        }).then(
-            function (response) {
-                console.log("✅ Email terkirim!", response.status, response.text);
-            },
-            function (error) {
-                console.log("❌ Gagal mengirim email:", error);
-            }
-        );
+    let adminEmail = "admin@example.com"; // Ganti dengan email admin
+    let subject = encodeURIComponent("Pesanan Baru dari " + user);
+    let body = encodeURIComponent("Detail Pesanan:\n" + orderDetails);
+
+    window.location.href = `mailto:${adminEmail}?subject=${subject}&body=${body}`;
     }
 
     function showWelcomeMessage() {
