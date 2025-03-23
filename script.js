@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", function () {
     let isOnline = navigator.onLine;
     let username = localStorage.getItem("username") || null;
     let isAdmin = localStorage.getItem("isAdmin") === "true";
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+    let reviews = JSON.parse(localStorage.getItem("reviews")) || {};
+    let flashSaleActive = false;
 
     const products = [
         { name: "Laptop", price: 15000000, desc: "Laptop high-performance untuk gaming & kerja" },
@@ -23,24 +26,83 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     function checkout() {
         if (!username) {
-            consoleContent.innerHTML += "❌ Anda harus login dengan Google sebelum bisa checkout.\n";
+            consoleContent.innerHTML += "❌ Anda harus login sebelum checkout.\n";
             return;
         }
         if (cart.length === 0) {
-            consoleContent.innerHTML += "🛒 Keranjang Anda kosong. Tambahkan produk terlebih dahulu!\n";
+            consoleContent.innerHTML += "🛒 Keranjang kosong! Tambahkan produk dulu.\n";
             return;
         }
 
+        let orderID = "ORD" + Date.now();
         let orderDetails = cart.map(p => `${p.name} - Rp${p.price.toLocaleString()}`).join("\n");
 
-        sendOrderEmail(username, orderDetails);
-        consoleContent.innerHTML += "✅ Checkout berhasil! Tunggu pesan email dari Admin.\n";
+        orders.push({ id: orderID, user: username, status: "Diproses", details: orderDetails });
+        localStorage.setItem("orders", JSON.stringify(orders));
 
-        purchaseHistory = purchaseHistory.concat(cart);
-        localStorage.setItem("history", JSON.stringify(purchaseHistory));
+        consoleContent.innerHTML += `✅ Checkout berhasil! ID pesanan Anda: ${orderID}\n`;
         cart = [];
         localStorage.removeItem("cart");
     }
+
+    function trackOrder(orderID) {
+        let order = orders.find(o => o.id === orderID);
+        if (order) {
+            consoleContent.innerHTML += `📦 Pesanan ${orderID} - Status: ${order.status}\n`;
+        } else {
+            consoleContent.innerHTML += "❌ Pesanan tidak ditemukan.\n";
+        }
+    }
+    
+
+    function startFlashSale() {
+        flashSaleActive = true;
+        consoleContent.innerHTML += "🔥 Flash Sale dimulai! Semua produk diskon 20% selama 10 menit!\n";
+
+        setTimeout(() => {
+            flashSaleActive = false;
+            consoleContent.innerHTML += "⏳ Flash Sale berakhir.\n";
+        }, 600000); // 10 menit
+    }
+
+    function applyFlashSale(price) {
+        return flashSaleActive ? Math.round(price * 0.8) : price;
+    }
+    
+
+    function addReview(productName, rating, comment) {
+        if (!username) {
+            consoleContent.innerHTML += "❌ Anda harus login untuk memberikan review.\n";
+            return;
+        }
+        if (!purchaseHistory.some(p => p.name.toLowerCase() === productName.toLowerCase())) {
+            consoleContent.innerHTML += "❌ Anda harus membeli produk ini sebelum memberi review.\n";
+            return;
+        }
+        if (rating < 1 || rating > 5) {
+            consoleContent.innerHTML += "❌ Rating harus antara 1-5.\n";
+            return;
+        }
+
+        if (!reviews[productName]) reviews[productName] = [];
+        reviews[productName].push({ user: username, rating, comment });
+
+        localStorage.setItem("reviews", JSON.stringify(reviews));
+        consoleContent.innerHTML += `✅ Review untuk '${productName}' berhasil ditambahkan!\n`;
+    }
+
+    function showReviews(productName) {
+        if (reviews[productName]) {
+            consoleContent.innerHTML += `📢 Review untuk ${productName}:\n`;
+            reviews[productName].forEach(r => {
+                consoleContent.innerHTML += `⭐ ${r.rating}/5 - ${r.comment} (by ${r.user})\n`;
+            });
+        } else {
+        consoleContent.innerHTML += "❌ Belum ada review untuk produk ini.\n";
+        }
+            }
+    
+
 
     function sendOrderEmail(user, orderDetails) {
     let adminEmail = "arrodactylusss@gmail.com"; // Ganti dengan email admin
