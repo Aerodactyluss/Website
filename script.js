@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function sendOrderEmail(user, orderDetails) {
-    let adminEmail = "admin@example.com"; // Ganti dengan email admin
+    let adminEmail = "arrodactylusss@gmail.com"; // Ganti dengan email admin
     let subject = encodeURIComponent("Pesanan Baru dari " + user);
     let body = encodeURIComponent("Detail Pesanan:\n" + orderDetails);
 
