@@ -78,16 +78,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function processCommand(command) {
         let response = "";
+        let args = command.split(" ");
         
-        if (command.toLowerCase().startsWith("admin ")) {
-            let password = command.split(" ")[1];
-            if (password === "@Aerodactylus") {
-                isAdmin = true;
-                localStorage.setItem("isAdmin", "true");
-                response = "✅ Login Admin berhasil!";
-            } else {
-                response = "❌ Password salah!";
-            }
+        if (command.toLowerCase() === "admin") {
+        response = "❌ Command tidak lengkap! Gunakan: admin [password]";
+    } else if (command.toLowerCase().startsWith("admin ")) {
+        let password = args[1];
+        if (!password) {
+            response = "❌ Anda harus memasukkan password! Gunakan: admin [password]";
+        } else if (password === "@Aerodactylus") {
+            isAdmin = true;
+            localStorage.setItem("isAdmin", "true");
+            response = "✅ Login Admin berhasil!";
+        } else {
+            response = "❌ Password salah!";
+        }
 
         } else if (command.toLowerCase() === "logout") {
             isAdmin = false;
@@ -130,20 +135,30 @@ document.addEventListener("DOMContentLoaded", function () {
                 saveProducts();
                 response = `✅ Produk '${name}' telah ditambahkan dengan harga Rp${price.toLocaleString()}.`;
             }
-        } else if (command.toLowerCase().startsWith("update ") && isAdmin) {
-            let args = command.split(" ");
-            let name = args[1];
-            let newPrice = parseInt(args[2]);
+        } else if (command.toLowerCase() === "update") {
+        response = "❌ Command tidak lengkap! Gunakan: update [nama produk] [harga baru]";
+    } else if (command.toLowerCase().startsWith("update ") && isAdmin) {
+        let name = args[1];
+        let newPrice = parseInt(args[2]);
+        if (!name || isNaN(newPrice)) {
+            response = "❌ Format salah atau produk tidak ditemukan! Gunakan: update [nama] [harga baru]";
+        } else {
             let product = products.find(p => p.name.toLowerCase() === name.toLowerCase());
-            if (!product || isNaN(newPrice)) {
-                response = "❌ Format salah atau produk tidak ditemukan. Gunakan: update [nama] [harga baru]";
-            } else {
+            if (product) {
                 product.price = newPrice;
                 saveProducts();
                 response = `✅ Harga '${name}' telah diperbarui menjadi Rp${newPrice.toLocaleString()}.`;
-                 }
-        } else if (command.toLowerCase().startsWith("remove ") && isAdmin) {
-            let name = command.split(" ")[1];
+            } else {
+                response = "❌ Produk tidak ditemukan.";
+            }
+        }
+    } else if (command.toLowerCase() === "remove") {
+        response = "❌ Command tidak lengkap! Gunakan: remove [nama produk]";
+    } else if (command.toLowerCase().startsWith("remove ") && isAdmin) {
+        let name = args[1];
+        if (!name) {
+            response = "❌ Anda harus memasukkan nama produk! Gunakan: remove [nama produk]";
+        } else {
             let index = products.findIndex(p => p.name.toLowerCase() === name.toLowerCase());
             if (index !== -1) {
                 products.splice(index, 1);
@@ -152,13 +167,19 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 response = "❌ Produk tidak ditemukan.";
             }
+        }
         } else if (command.toLowerCase() === "checkout") {
             checkout();
             return;
+        } else if (command.toLowerCase() === "buy") {
+        response = "❌ Command tidak lengkap! Gunakan: buy [nama produk]";
+            
         } else if (command.toLowerCase().startsWith("buy ")) {
-            let productName = command.substring(4);
+        let productName = args.slice(1).join(" ");
+        if (!productName) {
+            response = "❌ Anda harus memasukkan nama produk! Gunakan: buy [nama produk]";
+        } else {
             let product = products.find(p => p.name.toLowerCase() === productName.toLowerCase());
-
             if (product) {
                 cart.push(product);
                 localStorage.setItem("cart", JSON.stringify(cart));
@@ -166,6 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 response = "❌ Produk tidak ditemukan.";
             }
+                }
         } else if (command.toLowerCase() === "cart") {
             response = cart.length === 0 ? "🛒 Keranjang kosong." : "🛍 Isi Keranjang:\n";
             let total = 0;
@@ -181,7 +203,23 @@ document.addEventListener("DOMContentLoaded", function () {
         consoleContent.innerHTML += `\n${getPrompt()} ${command}\n${response}\n`;
         consoleWindow.scrollTop = consoleWindow.scrollHeight;
     }
+    } else if (command.toLowerCase() === "apply") {
+        response = "❌ Command tidak lengkap! Gunakan: apply [kode promo]";
+    } else if (command.toLowerCase().startsWith("apply ")) {
+        let promoCode = args[1];
+        if (!promoCode) {
+            response = "❌ Anda harus memasukkan kode promo! Gunakan: apply [kode promo]";
+        } else {
+            let discount = 0;
+            if (promoCode === "diskon50") discount = 0.5;
+            else if (promoCode === "diskon10") discount = 0.1;
 
+            if (discount > 0) {
+                response = `✅ Kode promo diterapkan! Total baru: Rp${(cart.reduce((sum, item) => sum + item.price, 0) * (1 - discount)).toLocaleString()}`;
+            } else {
+                response = "❌ Kode promo tidak valid.";
+            }
+        }
     consoleInput.addEventListener("keydown", function (event) {
         if (event.key === "Enter") {
             let command = consoleInput.value.trim();
