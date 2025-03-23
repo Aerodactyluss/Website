@@ -130,16 +130,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 saveProducts();
                 response = `✅ Produk '${name}' telah ditambahkan dengan harga Rp${price.toLocaleString()}.`;
             }
-        } else if (command.toLowerCase().startsWith("remove ") && isAdmin) {
-            let name = command.split(" ")[1];
-            let index = products.findIndex(p => p.name.toLowerCase() === name.toLowerCase());
-            if (index !== -1) {
-                products.splice(index, 1);
-                saveProducts();
-                response = `✅ Produk '${name}' telah dihapus.`;
+        } else if (command.toLowerCase().startsWith("update ") && isAdmin) {
+            let args = command.split(" ");
+            let name = args[1];
+            let newPrice = parseInt(args[2]);
+            let product = products.find(p => p.name.toLowerCase() === name.toLowerCase());
+            if (!product || isNaN(newPrice)) {
+                response = "❌ Format salah atau produk tidak ditemukan. Gunakan: update [nama] [harga baru]";
             } else {
-                response = "❌ Produk tidak ditemukan.";
-            }
+                product.price = newPrice;
+                saveProducts();
+                response = `✅ Harga '${name}' telah diperbarui menjadi Rp${newPrice.toLocaleString()}.`;
+                 }
         } else if (command.toLowerCase().startsWith("remove ") && isAdmin) {
             let name = command.split(" ")[1];
             let index = products.findIndex(p => p.name.toLowerCase() === name.toLowerCase());
