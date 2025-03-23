@@ -1,6 +1,6 @@
 # Aerodactylus Store  
 
-Windows Console Store adalah website toko online yang dirancang dengan tampilan terminal Windows Console. Website ini memungkinkan pengguna untuk membeli produk melalui command-line interface yang modern dan interaktif.  
+Aerodactylus Store adalah website toko online yang dirancang dengan tampilan terminal Windows Console. Website ini memungkinkan pengguna untuk membeli produk melalui command-line interface yang modern dan interaktif.  
 
 ## **Fitur Utama**  
 ✅ Simpan keranjang belanja menggunakan `localStorage`  
